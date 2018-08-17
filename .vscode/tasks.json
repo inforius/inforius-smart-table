@@ -1,0 +1,31 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Gulp",
+			"command": "gulp",
+			"args": [
+				"default"
+			],
+			"type": "shell",
+			"task": "build:table",
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "gulp",
+			"task": "build:table",
+			"problemMatcher": []
+		},
+		{
+			"type": "gulp",
+			"task": ":build:table:ngc",
+			"problemMatcher": []
+		}
+	]
+}

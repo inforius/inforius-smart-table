@@ -7,7 +7,7 @@ import { Grid } from '../../../lib/grid';
     selector: 'ng2-st-tbody-custom',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-      <a *ngFor="let action of grid.getSetting('actions.custom')" href="#"
+      <a *ngFor="let action of getActions(row)" href="#"
          class="ng2-smart-action ng2-smart-action-custom-custom" 
          [innerHTML]="action.title"
          (click)="onCustom(action, $event)"></a>
@@ -30,5 +30,21 @@ export class TbodyCustomComponent {
             source: this.source
         });
     }
+
+	getActions(row: Row){
+		const cust =  this.grid.getSetting('actions.custom');
+		const custfilt : any[] = [];
+		cust.forEach((element: any) => {
+			if (typeof element.condition === 'function'){
+				if (element.condition(row)) custfilt.push(element);
+			}else if (typeof element.condition === 'boolean'){
+				if (element.condition) custfilt.push(element);
+			}else {
+				custfilt.push(element)
+			}
+		});
+		return custfilt;
+	}
+
 
 }

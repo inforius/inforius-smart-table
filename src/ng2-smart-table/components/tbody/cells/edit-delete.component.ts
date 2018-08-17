@@ -8,9 +8,9 @@ import { DataSource } from '../../../lib/data-source/data-source';
   selector: 'ng2-st-tbody-edit-delete',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a href="#" *ngIf="isActionEdit" class="ng2-smart-action ng2-smart-action-edit-edit"
+    <a href="#" *ngIf="isEditable(row)" class="ng2-smart-action ng2-smart-action-edit-edit"
         [innerHTML]="editRowButtonContent" (click)="onEdit($event)"></a>
-    <a href="#" *ngIf="isActionDelete" class="ng2-smart-action ng2-smart-action-delete-delete"
+    <a href="#" *ngIf="isDeletable(row)" class="ng2-smart-action ng2-smart-action-delete-delete"
         [innerHTML]="deleteRowButtonContent" (click)="onDelete($event)"></a>
   `,
 })
@@ -26,8 +26,8 @@ export class TbodyEditDeleteComponent implements OnChanges {
   @Output() delete = new EventEmitter<any>();
   @Output() editRowSelect = new EventEmitter<any>();
 
-  isActionEdit: boolean;
-  isActionDelete: boolean;
+  isActionEdit: any;
+  isActionDelete: any;
   editRowButtonContent: string;
   deleteRowButtonContent: string;
 
@@ -61,6 +61,13 @@ export class TbodyEditDeleteComponent implements OnChanges {
     }
   }
 
+  isEditable(row: any){
+	return (typeof this.isActionEdit === 'function') ? this.isActionEdit(row) : this.isActionEdit
+  }
+
+  isDeletable(row: any){
+	return (typeof this.isActionDelete === 'function') ? this.isActionDelete(row) : this.isActionDelete
+  }
   ngOnChanges(){
     this.isActionEdit = this.grid.getSetting('actions.edit');
     this.isActionDelete = this.grid.getSetting('actions.delete');

@@ -144,7 +144,7 @@ function createRollupBundle(format: string, outFile: string) {
   const rollupGenerateOptions = {
     // Keep the moduleId empty because we don't want to force developers to a specific moduleId.
     moduleId: '',
-    moduleName: 'ng2-smart-table',
+    moduleName: 'inforius-smart-table',
     banner: TABLE_LICENSE_BANNER,
     format: format,
     dest: outFile,

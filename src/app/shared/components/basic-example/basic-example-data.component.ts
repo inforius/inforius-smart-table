@@ -23,6 +23,15 @@ export class BasicExampleDataComponent {
         title: 'Email',
       },
     },
+	actions : {
+		edit: (row => {return row.data.id===1;}),
+		custom: [{
+			name: 'view',
+			title: 'VIEW',
+			condition: (row => {return row.data.id===2;})
+		}
+		],
+	}
   };
 
   data = [
